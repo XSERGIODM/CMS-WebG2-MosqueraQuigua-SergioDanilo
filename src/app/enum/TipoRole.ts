@@ -1,4 +1,5 @@
 export enum TipoRole {
   REPORTERO= "Reportero",
-  EDITOR= "Editor"
+  EDITOR= "Editor",
+  VISITANTE= "Visitante"
 }
