@@ -62,7 +62,7 @@ export const MOCKUP_NOTICIAS: Noticia[] = [
     autorUid: 'user-002',
     fechaCreacion: new Date('2024-10-12T08:00:00'),
     fechaActualizacion: new Date('2024-10-12T08:00:00'),
-    estado: EstadoPublicacion.PENDIENTE
+    estado: EstadoPublicacion.PUBLICADO
   },
   {
     id: 'not-004',
@@ -103,7 +103,7 @@ export const MOCKUP_NOTICIAS: Noticia[] = [
     autorUid: 'user-003',
     fechaCreacion: new Date('2024-10-22T15:20:00'),
     fechaActualizacion: new Date('2024-10-22T15:20:00'),
-    estado: EstadoPublicacion.BORRADOR
+    estado: EstadoPublicacion.PUBLICADO
   },
   {
     id: 'not-006',
@@ -165,7 +165,7 @@ export const MOCKUP_NOTICIAS: Noticia[] = [
     autorUid: 'user-003',
     fechaCreacion: new Date('2024-10-30T14:30:00'),
     fechaActualizacion: new Date('2024-10-30T14:30:00'),
-    estado: EstadoPublicacion.BORRADOR
+    estado: EstadoPublicacion.PUBLICADO
   },
   {
     id: 'not-009',
@@ -186,7 +186,7 @@ export const MOCKUP_NOTICIAS: Noticia[] = [
     autorUid: 'user-002',
     fechaCreacion: new Date('2024-11-01T08:45:00'),
     fechaActualizacion: new Date('2024-11-01T08:45:00'),
-    estado: EstadoPublicacion.RECHAZADO
+    estado: EstadoPublicacion.PUBLICADO
   },
   {
     id: 'not-010',
