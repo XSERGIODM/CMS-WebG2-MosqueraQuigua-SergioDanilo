@@ -49,6 +49,7 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.cargarNoticias();
     this.cargarCategorias();
+    window.scrollTo(0, 0);
   }
 
   // Cargar noticias publicadas

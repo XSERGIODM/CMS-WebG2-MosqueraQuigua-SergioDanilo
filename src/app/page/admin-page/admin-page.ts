@@ -100,6 +100,7 @@ export class AdminPage implements OnInit {
     await this.cargarUsuarios();
     await this.cargarPublicaciones();
     await this.cargarCategorias();
+    window.scrollTo(0, 0);
   }
 
   // ========================================

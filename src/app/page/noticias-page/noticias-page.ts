@@ -175,6 +175,7 @@ export class NoticiasPage implements OnInit {
 
   ngOnInit() {
     this.cargarDatos();
+    window.scrollTo(0, 0);
   }
 
   async cargarDatos() {
