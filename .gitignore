@@ -47,3 +47,5 @@ src/environments/
 firestore.rules
 
 firebase-debug.log
+
+firestore.indexes.json

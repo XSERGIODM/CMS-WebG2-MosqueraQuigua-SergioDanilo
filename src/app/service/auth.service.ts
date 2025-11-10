@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, NgZone } from '@angular/core';
 import {
   Auth,
   createUserWithEmailAndPassword,
@@ -28,15 +28,19 @@ export class AuthService {
 
   constructor(
     private auth: Auth,
-    private firestore: Firestore
+    private firestore: Firestore,
+    private ngZone: NgZone
   ) {
     // Escuchar cambios de autenticación
     onAuthStateChanged(this.auth, async (firebaseUser) => {
-      if (firebaseUser) {
-        await this.cargarDatosUsuario(firebaseUser.uid);
-      } else {
-        this.usuarioActual.set(null);
-      }
+      // Ejecutar dentro de la zona de Angular
+      this.ngZone.run(async () => {
+        if (firebaseUser) {
+          await this.cargarDatosUsuario(firebaseUser.uid);
+        } else {
+          this.usuarioActual.set(null);
+        }
+      });
     });
   }
 

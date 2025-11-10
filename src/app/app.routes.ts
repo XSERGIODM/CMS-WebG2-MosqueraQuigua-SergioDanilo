@@ -1,9 +1,11 @@
 import { Routes } from '@angular/router';
 import { HomePage } from './page/home-page/home-page';
-import {NoticiasPage} from './page/noticias-page/noticias-page';
-import {DetalleNoticiaPage} from './page/detalle-noticia-page/detalle-noticia-page';
-import {LoginPage} from './page/login-page/login-page';
-import {PerfilPage} from './page/perfil-page/perfil-page';
+import { NoticiasPage } from './page/noticias-page/noticias-page';
+import { DetalleNoticiaPage } from './page/detalle-noticia-page/detalle-noticia-page';
+import { LoginPage } from './page/login-page/login-page';
+import { PerfilPage } from './page/perfil-page/perfil-page';
+import { CmsPage } from './page/cms-page/cms-page';
+import { cmsGuard } from './auth/cms.guard';
 
 export const routes: Routes = [
   {
@@ -30,6 +32,11 @@ export const routes: Routes = [
   {
     path: 'perfil',
     component: PerfilPage
+  },
+  {
+    path: 'cms',
+    component: CmsPage,
+    canActivate: [cmsGuard]
   },
   {
     path: '**',
