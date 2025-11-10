@@ -49,3 +49,7 @@ firestore.rules
 firebase-debug.log
 
 firestore.indexes.json
+
+firebase.json
+
+storage.rules

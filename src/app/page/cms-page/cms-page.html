@@ -198,18 +198,31 @@
             <label class="form-label" for="categoria">
               Categoría <span class="requerido">*</span>
             </label>
-            <select
-              id="categoria"
-              class="form-select"
-              [value]="formCategoriaId()"
-              (change)="formCategoriaId.set($any($event.target).value)"
-              required
-            >
-              <option value="">Selecciona una categoría</option>
-              @for (categoria of categorias; track categoria.id) {
-                <option [value]="categoria.id">{{ categoria.nombre }}</option>
-              }
-            </select>
+
+            <!-- Loading de categorías -->
+            @if (categoriasCargando()) {
+              <div class="flex items-center space-x-2 p-3 border border-gray-300 rounded-lg">
+                <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-green-600"></div>
+                <span class="text-sm text-gray-600">Cargando categorías...</span>
+              </div>
+            } @else if (categoriasError()) {
+              <div class="p-3 border border-red-200 bg-red-50 rounded-lg">
+                <p class="text-sm text-red-800">{{ categoriasError() }}</p>
+              </div>
+            } @else {
+              <select
+                id="categoria"
+                class="form-select"
+                [value]="formCategoriaId()"
+                (change)="formCategoriaId.set($any($event.target).value)"
+                required
+              >
+                <option value="">Selecciona una categoría</option>
+                @for (categoria of categorias(); track categoria.id) {
+                  <option [value]="categoria.id">{{ categoria.nombre }}</option>
+                }
+              </select>
+            }
           </div>
 
           <!-- Contenido -->
@@ -237,41 +250,55 @@
           <!-- Imágenes -->
           <div class="form-group">
             <label class="form-label">
-              URLs de Imágenes <span class="requerido">*</span>
+              Imágenes <span class="requerido">*</span>
             </label>
-            <small class="form-hint">Al menos una imagen es requerida</small>
+            <small class="form-hint">
+              Selecciona hasta 5 imágenes (JPG, PNG, GIF, WebP - máx. 5MB cada una)
+            </small>
 
-            <div class="imagenes-lista">
-              @for (imagen of formImagenes(); track $index) {
-                <div class="imagen-input-group">
-                  <input
-                    type="url"
-                    class="form-input"
-                    [value]="imagen"
-                    (input)="actualizarImagen($index, $any($event.target).value)"
-                    placeholder="https://ejemplo.com/imagen.jpg"
-                  />
-                  @if (formImagenes().length > 1) {
+            <!-- Input de archivos -->
+            <input
+              type="file"
+              class="form-input"
+              multiple
+              accept="image/*"
+              (change)="seleccionarArchivos($event)"
+              #fileInput
+            />
+
+            <!-- Previews de imágenes -->
+            @if (imagenesPreview().length > 0) {
+              <div class="imagenes-preview">
+                @for (preview of imagenesPreview(); track $index) {
+                  <div class="imagen-preview">
+                    <img [src]="preview" alt="Preview" class="imagen-preview-img" />
                     <button
                       type="button"
-                      class="btn-eliminar-imagen"
-                      (click)="eliminarImagen($index)"
+                      class="btn-eliminar-preview"
+                      (click)="eliminarPreview($index)"
                       title="Eliminar imagen"
                     >
                       ✕
                     </button>
-                  }
-                </div>
-              }
-            </div>
+                  </div>
+                }
+              </div>
+            }
 
-            <button
-              type="button"
-              class="btn-agregar-imagen"
-              (click)="agregarImagen()"
-            >
-              + Agregar otra imagen
-            </button>
+            <!-- Progreso de subida -->
+            @if (subiendoImagenes()) {
+              <div class="progreso-subida">
+                <div class="progreso-barra">
+                  <div
+                    class="progreso-llenado"
+                    [style.width.%]="storageService.progreso()"
+                  ></div>
+                </div>
+                <span class="progreso-texto">
+                  Subiendo imágenes... {{ storageService.progreso() | number:'1.0-0' }}%
+                </span>
+              </div>
+            }
           </div>
 
           <!-- Botones de acción -->
@@ -287,7 +314,7 @@
             <button
               type="submit"
               class="btn-guardar"
-              [disabled]="!formularioValido() || cargando()"
+              [disabled]="!formularioValido() || cargando() || !puedeCrearNoticia()"
             >
               @if (cargando()) {
                 <span class="spinner-small"></span>
@@ -298,7 +325,7 @@
             <button
               type="button"
               class="btn-enviar-revision"
-              [disabled]="!formularioValido() || cargando()"
+              [disabled]="!formularioValido() || cargando() || !puedeCrearNoticia()"
               (click)="enviarARevision()"
             >
               @if (cargando()) {
@@ -325,7 +352,7 @@
                 @if (formCategoriaId().trim().length === 0) {
                   <li>• Categoría es obligatoria</li>
                 }
-                @if (imagenesValidas().length === 0) {
+                @if (!imagenesValidas()) {
                   <li>• Al menos una imagen es requerida</li>
                 }
               </ul>
