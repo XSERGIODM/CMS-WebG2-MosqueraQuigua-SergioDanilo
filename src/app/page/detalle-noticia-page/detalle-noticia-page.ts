@@ -1,6 +1,7 @@
 import { Component, computed, signal, ChangeDetectionStrategy, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Firestore, doc, getDoc } from '@angular/fire/firestore';
 import { Noticia } from '../../models/Notica.model';
 import { Categoria } from '../../models/Categoria.model';
 import { Usuario } from '../../models/Usuario.model';
@@ -18,6 +19,7 @@ import { AuthService } from '../../service/auth.service';
 export class DetalleNoticiaPage implements OnInit {
   // Inyección de servicios
   private route = inject(ActivatedRoute);
+  private firestore = inject(Firestore);
   private router = inject(Router);
   private noticiaService = inject(NoticiaService);
   private categoriasService = inject(CategoriasService);
@@ -78,10 +80,9 @@ export class DetalleNoticiaPage implements OnInit {
       }
 
       // Cargar datos en paralelo
-      const [noticia, categorias, usuarios, todasLasNoticias] = await Promise.all([
+      const [noticia, categorias, todasLasNoticias] = await Promise.all([
         this.noticiaService.obtenerNoticiaPorId(id),
         this.categoriasService.obtenerCategorias(),
-        this.authService.obtenerUsuarios(),
         this.noticiaService.obtenerNoticiasPublicadas()
       ]);
 
@@ -89,6 +90,19 @@ export class DetalleNoticiaPage implements OnInit {
         this.error.set('La noticia no existe o ha sido eliminada');
         return;
       }
+
+      // Obtener autores necesarios (autor de la noticia actual + autores de noticias relacionadas)
+      const noticiasRelacionadas = todasLasNoticias
+        .filter(n => n.categoriaId === noticia.categoriaId && n.id !== noticia.id)
+        .slice(0, 3);
+
+      const autorUidsNecesarios = [
+        noticia.autorUid,
+        ...noticiasRelacionadas.map(n => n.autorUid)
+      ].filter((uid, index, arr) => arr.indexOf(uid) === index); // Eliminar duplicados
+
+      // Obtener usuarios de autores necesarios
+      const usuarios = await this.obtenerUsuariosPorIds(autorUidsNecesarios);
 
       // Actualizar signals
       this.noticiaActual.set(noticia);
@@ -120,6 +134,40 @@ export class DetalleNoticiaPage implements OnInit {
     const url = window.location.href;
     const title = this.noticiaActual()?.titulo || '';
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(title)}`, '_blank');
+  }
+  // Método para obtener usuarios específicos por IDs (solo autores necesarios)
+  private async obtenerUsuariosPorIds(uids: string[]): Promise<Usuario[]> {
+    try {
+      const usuarios: Usuario[] = [];
+
+      for (const uid of uids) {
+        try {
+          // Intentar obtener usuario por ID individual
+          const docRef = doc(this.firestore, 'usuarios', uid);
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            usuarios.push({
+              uid: docSnap.id,
+              email: data['email'],
+              nombre: data['nombre'],
+              apellido: data['apellido'],
+              numero: data['numero'],
+              rol: data['rol']
+            });
+          }
+        } catch (error) {
+          console.warn(`Error obteniendo usuario ${uid}:`, error);
+          // Continuar con otros usuarios si uno falla
+        }
+      }
+
+      return usuarios;
+    } catch (error) {
+      console.error('Error obteniendo usuarios por IDs:', error);
+      return [];
+    }
   }
 
   compartirTwitter(): void {
