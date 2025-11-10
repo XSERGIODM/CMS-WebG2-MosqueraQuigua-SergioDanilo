@@ -1,10 +1,10 @@
 /* ========================================
-   ADMIN DASHBOARD - ESTILOS AMAZÓNICOS
-   ======================================== */
+    ADMIN DASHBOARD - ESTILOS TECNOLIGA DEL SUR
+    ======================================== */
 
 .admin-dashboard {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1a4a3a 0%, #2d6a4f 50%, #1a4a3a 100%);
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1e3a8a 100%);
   color: #f8f9fa;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -36,7 +36,7 @@
 }
 
 .user-role {
-  color: #74c69d;
+  color: #3b82f6;
   font-weight: 600;
 }
 
@@ -50,7 +50,7 @@
   border-radius: 8px;
   text-align: center;
   font-weight: 500;
-  background: #74c69d;
+  background: #3b82f6;
   color: #1a4a3a;
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -66,7 +66,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(26, 74, 58, 0.9);
+  background: rgba(30, 58, 138, 0.9);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,7 +79,7 @@
   width: 50px;
   height: 50px;
   border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top: 4px solid #74c69d;
+  border-top: 4px solid #3b82f6;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 1rem;
@@ -119,9 +119,9 @@
 }
 
 .admin-tabs button.active {
-  color: #74c69d;
-  border-bottom-color: #74c69d;
-  background: rgba(116, 198, 157, 0.1);
+  color: #3b82f6;
+  border-bottom-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
 }
 
 /* ========================================
@@ -169,7 +169,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(116, 198, 157, 0.2);
+  background: rgba(59, 130, 246, 0.2);
   border-radius: 12px;
 }
 
@@ -184,7 +184,7 @@
 .stat-number {
   font-size: 2rem;
   font-weight: 700;
-  color: #74c69d;
+  color: #3b82f6;
 }
 
 .stats-details {
@@ -203,7 +203,7 @@
 
 .detail-section h4 {
   margin: 0 0 1rem 0;
-  color: #74c69d;
+  color: #3b82f6;
   font-size: 1.2rem;
 }
 
@@ -231,7 +231,7 @@
 
 .stat-value {
   font-weight: 700;
-  color: #74c69d;
+  color: #3b82f6;
 }
 
 /* ========================================
@@ -279,8 +279,8 @@
 
 .search-input:focus {
   outline: none;
-  border-color: #74c69d;
-  box-shadow: 0 0 0 2px rgba(116, 198, 157, 0.3);
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
 }
 
 .filters {
@@ -301,12 +301,12 @@
 
 .filter-select:focus {
   outline: none;
-  border-color: #74c69d;
-  box-shadow: 0 0 0 2px rgba(116, 198, 157, 0.3);
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
 }
 
 .filter-select option {
-  background: #1a4a3a;
+  background: #1e3a8a;
   color: #f8f9fa;
 }
 
@@ -330,7 +330,7 @@
 }
 
 .data-table thead {
-  background: rgba(116, 198, 157, 0.2);
+  background: rgba(59, 130, 246, 0.2);
 }
 
 .data-table th {
@@ -374,13 +374,13 @@
 .role-select:focus,
 .status-select:focus {
   outline: none;
-  border-color: #74c69d;
-  box-shadow: 0 0 0 2px rgba(116, 198, 157, 0.3);
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
 }
 
 .role-select option,
 .status-select option {
-  background: #1a4a3a;
+  background: #1e3a8a;
   color: #f8f9fa;
 }
 
@@ -389,7 +389,7 @@
    ======================================== */
 
 .btn-primary {
-  background: #74c69d;
+  background: #3b82f6;
   color: #1a4a3a;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -401,13 +401,13 @@
 }
 
 .btn-primary:hover {
-  background: #52b788;
+  background: #2563eb;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(116, 198, 157, 0.3);
+  box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
 }
 
 .btn-success {
-  background: #74c69d;
+  background: #3b82f6;
   color: #1a4a3a;
   border: none;
   padding: 0.5rem 1rem;
@@ -419,7 +419,7 @@
 }
 
 .btn-success:hover {
-  background: #52b788;
+  background: #2563eb;
   transform: translateY(-1px);
 }
 
@@ -483,7 +483,7 @@
 
 .form-card h3 {
   margin: 0 0 1.5rem 0;
-  color: #74c69d;
+  color: #3b82f6;
   font-size: 1.3rem;
 }
 
@@ -517,8 +517,8 @@
 .form-input:focus,
 .form-textarea:focus {
   outline: none;
-  border-color: #74c69d;
-  box-shadow: 0 0 0 2px rgba(116, 198, 157, 0.3);
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
 }
 
 .form-input::placeholder,
@@ -545,8 +545,8 @@
 .edit-input:focus,
 .edit-textarea:focus {
   outline: none;
-  border-color: #74c69d;
-  box-shadow: 0 0 0 2px rgba(116, 198, 157, 0.3);
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
 }
 
 /* ========================================
