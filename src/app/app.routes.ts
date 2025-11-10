@@ -5,7 +5,9 @@ import { DetalleNoticiaPage } from './page/detalle-noticia-page/detalle-noticia-
 import { LoginPage } from './page/login-page/login-page';
 import { PerfilPage } from './page/perfil-page/perfil-page';
 import { CmsPage } from './page/cms-page/cms-page';
+import { AdminPage } from './page/admin-page/admin-page';
 import { cmsGuard } from './auth/cms.guard';
+import { adminGuard } from './auth/admin.guard';
 
 export const routes: Routes = [
   {
@@ -37,6 +39,11 @@ export const routes: Routes = [
     path: 'cms',
     component: CmsPage,
     canActivate: [cmsGuard]
+  },
+  {
+    path: 'admin',
+    component: AdminPage,
+    canActivate: [adminGuard]
   },
   {
     path: '**',
